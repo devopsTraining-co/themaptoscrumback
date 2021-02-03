@@ -1,15 +1,15 @@
-version: 2.1 # Use version 2.1 to enable orb usage.
-
+version: 2.1
 orbs:
-  win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.
-
-jobs:
-  build: # name of your job
-    executor:
-      name: win/default 
-      size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
-
-    steps:
-      # Commands are run in a Windows virtual machine environment
-      - checkout
-      - run: dotnet build 
+  docker: circleci/docker@1.5.0
+  jobs:
+    pull:
+      executor: docker/machine
+      steps:
+        - checkout
+        - docker/pull:
+           images: 'khadijafatmi/themaptoscrum:latest'
+workflows:
+  dockerPullAndTest:
+    jobs:
+      - pull
+     # - dockerTest
