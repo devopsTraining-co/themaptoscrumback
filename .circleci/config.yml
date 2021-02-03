@@ -1,13 +1,14 @@
 version: 2.1
 orbs:
   docker: circleci/docker@1.5.0
-  jobs:
-    pull:
-      executor: docker/machine
-      steps:
-        - checkout
-        - docker/pull:
-           images: 'khadijafatmi/themaptoscrum:latest'
+
+jobs:
+  pull:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/pull:
+         images: 'khadijafatmi/themaptoscrum:latest'
 workflows:
   dockerPullAndTest:
     jobs:
